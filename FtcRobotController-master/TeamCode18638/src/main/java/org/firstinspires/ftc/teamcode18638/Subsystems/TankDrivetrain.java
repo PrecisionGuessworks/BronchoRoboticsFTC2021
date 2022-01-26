@@ -84,9 +84,13 @@ public class TankDrivetrain {
         leftMotorOutput = throttle + rotation;
         rightMotorOutput = throttle - rotation;
 
+        leftMotorOutput = standardize(leftMotorOutput);
+        rightMotorOutput = standardize(rightMotorOutput);
+
         telemetry.addData("ArcadeLeft", leftMotorOutput);
         telemetry.addData( "ArcadeRight", rightMotorOutput);
         double[] motorPowers = {leftMotorOutput, rightMotorOutput};
+
         setPower(motorPowers);
         return motorPowers;
     }   // arcadeDrive
@@ -189,6 +193,13 @@ public class TankDrivetrain {
         }else{
             return val;
         }
+    }
+
+    public double standardize(double val){
+        if (val > 0.01){
+            val = val * (1 - minDrivePowerToBreakStaticFriction) + minDrivePowerToBreakStaticFriction;
+        }
+        return val;
     }
 
 }
