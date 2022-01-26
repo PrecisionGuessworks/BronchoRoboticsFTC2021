@@ -115,7 +115,13 @@ public class TeleopMode extends OpMode {
             blockArm.setPosition(1);
         }
 
-
+        if (gamepad1.square) {
+            intake.intake();
+        } else if (gamepad1.dpad_down) {
+            intake.spitout();
+        } else {
+            intake.idle();
+        }
     }
 
     public void checkOperatorController(){
@@ -129,6 +135,8 @@ public class TeleopMode extends OpMode {
             duckSpinner.setDuckMotorPower(0);
             blinkin.setColor12Twinkle();
         }
+
+
     }
 
     public void getTelemetry() {
