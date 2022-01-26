@@ -21,6 +21,7 @@ public class TeleopMode extends OpMode {
     DuckSpinner duckSpinner;
     BotUtilities utilities;
     BlockArm blockArm;
+    Capper capper;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -31,6 +32,7 @@ public class TeleopMode extends OpMode {
         duckSpinner = new DuckSpinner(this.hardwareMap, this.telemetry);
         utilities = new BotUtilities(this.telemetry);
         blockArm = new BlockArm(this.hardwareMap, this.telemetry);
+        capper = new Capper(this.hardwareMap, this.telemetry);
 
         // Set up our telemetry dashboard
         getTelemetry();
@@ -102,11 +104,26 @@ public class TeleopMode extends OpMode {
         } else {
             blockArm.setPosition(1);
         }
+        if (gamepad1.dpad_right) {
+            capper.setPowerOfExtenderServo(1);
+        } else if (gamepad1.dpad_left){
+            capper.setPowerOfExtenderServo(-1);
+        }
 
     }
 
     public void checkOperatorController(){
+        if (gamepad2.dpad_right) {
+            capper.setPowerOfExtenderServo(1);
+        } else if (gamepad2.dpad_left){
+            capper.setPowerOfExtenderServo(-1);
+        }
 
+        double verticalOrientation = capper.getVerticalOrientation();
+
+        double horizontalOrientation = capper.getHorizontalOrientation();
+
+        capper.setOrientation((verticalOrientation + gamepad2.right_stick_x), (horizontalOrientation + gamepad2.left_stick_y));
     }
 
     public void getTelemetry() {
