@@ -17,15 +17,17 @@ public class DuckSpinner {
     public void runDuckMotorForward(){
         setDuckMotorPower(DUCK_MOTOR_SPEED);
     }
+
     public void runDuckMotorBackwards(){
         setDuckMotorPower(-DUCK_MOTOR_SPEED);
     }
-    public void setDuckMotorPower(double power){
-        // Use the setMotorPower example for MecanumDrivetrain to create make this method
-        // to set the duckSpinningPower
-        duckSpinningMotor.setPower(power);
-    }
+
     public void stopMotor() {
         duckSpinningMotor.setPower(0);
     }
+
+    public void setDuckMotorPower(double power){
+        duckSpinningMotor.setPower(power);
+    }
+
 }
